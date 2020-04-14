@@ -15,29 +15,23 @@ resource "aws_vpc" "vcp_igor" {
 # Internet
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.vcp_igor.id
-
 }
 
 resource "aws_route_table" "igw" {
   vpc_id = aws_vpc.vcp_igor.id
-
-}
-
-resource "aws_route" "igw" {
-  route_table_id = aws_route_table.igw.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
 }
 
 # NAT
 resource "aws_route_table" "ngw" {
   vpc_id = aws_vpc.vcp_igor.id
-}
-
-resource "aws_route" "ngw" {
-  route_table_id = aws_route_table.ngw.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.main.id
+  }
 }
 
 resource "aws_eip" "nat" {
