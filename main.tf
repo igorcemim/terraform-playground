@@ -10,12 +10,12 @@ provider "aws" {
 }
 
 # S3
-resource "aws_s3_bucket" "igor_dev4_s3" {
-  bucket = "igor-dev4-s3"
+resource "aws_s3_bucket" "igor_dev3_s3" {
+  bucket = "igor-dev3-s3"
   acl    = "private"
 
   tags = {
-    Name = "igor-dev4-s3"
+    Name = "igor-dev3-s3"
   }
 }
 
@@ -41,12 +41,12 @@ resource "aws_instance" "igor_dev" {
       aws_security_group.security_group_exit_enable_all.id
     ]
     associate_public_ip_address = true
-        tags = {
-        Name = "igor_dev${count.index}"
+    tags = {
+      Name = "igor_dev${count.index}"
     }
 }
 
-resource "aws_instance" "igor_dev4" {
+resource "aws_instance" "igor_dev3" {
   ami = "ami-07ebfd5b3428b6f4d" # Ubuntu Server 18.04 LTS
   instance_type = "t2.micro"
   key_name = "terraform-aws"
@@ -57,8 +57,8 @@ resource "aws_instance" "igor_dev4" {
   ]
   associate_public_ip_address = true
   tags = {
-    Name = "igor_dev4"
+    Name = "igor_dev3"
   }
-  depends_on = [aws_s3_bucket.igor_dev4_s3]
+  depends_on = [aws_s3_bucket.igor_dev3_s3]
 }
 
