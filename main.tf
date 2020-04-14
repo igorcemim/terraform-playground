@@ -3,10 +3,26 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+provider "aws" {
+  alias = "us-east-2"
+  version = "~> 2.0"
+  region  = "us-east-2"
+}
+
 # S3
 resource "aws_s3_bucket" "igor_dev4_s3" {
   bucket = "igor-dev4-s3"
   acl    = "private"
+
+  tags = {
+    Name = "igor-dev4-s3"
+  }
+}
+
+resource "aws_s3_bucket" "test_s3_east2" {
+  bucket = "test-s3-east2"
+  acl    = "private"
+  provider = aws.us-east-2
 
   tags = {
     Name = "igor-dev4-s3"
