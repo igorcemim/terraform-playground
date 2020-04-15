@@ -12,3 +12,11 @@ variable "key_name" {
 variable "instance_type" {
   default = "t2.micro"
 }
+
+variable "ssh_private_key" {
+  default = "~/.ssh/terraform_aws_rsa"
+}
+
+variable "ssh_public_key" {
+  default = "~/.ssh/terraform_aws_rsa.pub"
+}

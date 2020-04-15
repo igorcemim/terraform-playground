@@ -1,8 +1,8 @@
 resource "aws_instance" "igor_dev" {
-  count = 3
+  count = 2
   ami = var.amis.us-east-1-ubuntu-server
   instance_type = var.instance_type
-  key_name = var.key_name
+  key_name = aws_key_pair.key_pair.key_name
   subnet_id = aws_subnet.subnet_public_1a.id
   vpc_security_group_ids = [
     aws_security_group.security_group_ssh.id,
@@ -14,10 +14,10 @@ resource "aws_instance" "igor_dev" {
   }
 }
 
-resource "aws_instance" "igor_dev3" {
+resource "aws_instance" "igor_dev2" {
   ami = var.amis.us-east-1-ubuntu-server
   instance_type = var.instance_type
-  key_name = var.key_name
+  key_name = aws_key_pair.key_pair_us_east_2.key_name
   subnet_id = aws_subnet.subnet_public_1a.id
   vpc_security_group_ids = [
     aws_security_group.security_group_ssh.id,
@@ -25,7 +25,20 @@ resource "aws_instance" "igor_dev3" {
   ]
   associate_public_ip_address = true
   tags = {
-    Name = "igor_dev3"
+    Name = "igor_dev2"
   }
-  depends_on = [aws_s3_bucket.igor_dev3_s3]
+  depends_on = [aws_s3_bucket.igor_dev2_bucket]
+
+  connection {
+    type = "ssh"
+    user = "ubuntu"
+    host = self.public_dns
+    private_key = file(var.ssh_private_key)
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Hello :D' > /tmp/hello.txt"
+    ]
+  }
 }

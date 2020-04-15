@@ -1,9 +1,9 @@
-resource "aws_s3_bucket" "igor_dev3_s3" {
-  bucket = "igor-dev3-s3"
+resource "aws_s3_bucket" "igor_dev2_bucket" {
+  bucket = "igor-dev2-bucket"
   acl    = "private"
 
   tags = {
-    Name = "igor-dev3-s3"
+    Name = "igor-dev2-bucket"
   }
 }
 
