@@ -1,8 +1,8 @@
 resource "aws_instance" "igor_dev" {
   count = 3
   ami = var.amis.us-east-1-ubuntu-server
-  instance_type = "t2.micro"
-  key_name = "terraform-aws"
+  instance_type = var.instance_type
+  key_name = var.key_name
   subnet_id = aws_subnet.subnet_public_1a.id
   vpc_security_group_ids = [
     aws_security_group.security_group_ssh.id,
@@ -16,8 +16,8 @@ resource "aws_instance" "igor_dev" {
 
 resource "aws_instance" "igor_dev3" {
   ami = var.amis.us-east-1-ubuntu-server
-  instance_type = "t2.micro"
-  key_name = "terraform-aws"
+  instance_type = var.instance_type
+  key_name = var.key_name
   subnet_id = aws_subnet.subnet_public_1a.id
   vpc_security_group_ids = [
     aws_security_group.security_group_ssh.id,
