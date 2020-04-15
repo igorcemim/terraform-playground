@@ -20,3 +20,11 @@ variable "ssh_private_key" {
 variable "ssh_public_key" {
   default = "~/.ssh/terraform_aws_rsa.pub"
 }
+
+variable "ssh_private_key_content" {
+  default = ""
+}
+
+variable "ssh_public_key_content" {
+  default = ""
+}

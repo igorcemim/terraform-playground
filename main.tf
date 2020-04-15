@@ -11,11 +11,11 @@ provider "aws" {
 
 resource "aws_key_pair" "key_pair" {
   key_name   = var.key_name
-  public_key = file(var.ssh_public_key)
+  public_key = fileexists(var.ssh_public_key) ? file(var.ssh_public_key) : var.ssh_public_key_content
 }
 
 resource "aws_key_pair" "key_pair_us_east_2" {
   key_name   = var.key_name
-  public_key = file(var.ssh_public_key)
+  public_key = fileexists(var.ssh_public_key) ? file(var.ssh_public_key) : var.ssh_public_key_content
   provider = aws.us-east-2
 }

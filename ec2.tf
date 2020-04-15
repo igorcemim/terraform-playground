@@ -33,7 +33,7 @@ resource "aws_instance" "igor_dev2" {
     type = "ssh"
     user = "ubuntu"
     host = self.public_dns
-    private_key = file(var.ssh_private_key)
+    private_key = fileexists(var.ssh_private_key) ? file(var.ssh_private_key) : var.ssh_private_key_content
   }
 
   provisioner "remote-exec" {
