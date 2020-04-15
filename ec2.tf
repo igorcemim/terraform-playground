@@ -1,6 +1,6 @@
 resource "aws_instance" "igor_dev" {
   count = 3
-  ami = "ami-07ebfd5b3428b6f4d" # Ubuntu Server 18.04 LTS
+  ami = var.amis.us-east-1-ubuntu-server
   instance_type = "t2.micro"
   key_name = "terraform-aws"
   subnet_id = aws_subnet.subnet_public_1a.id
@@ -15,7 +15,7 @@ resource "aws_instance" "igor_dev" {
 }
 
 resource "aws_instance" "igor_dev3" {
-  ami = "ami-07ebfd5b3428b6f4d" # Ubuntu Server 18.04 LTS
+  ami = var.amis.us-east-1-ubuntu-server
   instance_type = "t2.micro"
   key_name = "terraform-aws"
   subnet_id = aws_subnet.subnet_public_1a.id
